@@ -1,0 +1,130 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Usuarios de Ejemplo ARCSA",
+    "description": "Ejemplo de documentación en swagger para prueba técnica ARCSA. Se considera localhost y el puerto 4000 para la URL base, en el deploy de producción se debera cambiar la URL base."
+  },
+  "host": "localhost:4000",
+  "basePath": "/v1",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API de usuarios en el sistema"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/users": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Obtiene todos los usuarios",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UsersResult"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "summary": "Crea un nuevo usuario",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Nombre del usuario a crear",
+            "schema": {
+              "$ref": "#/definitions/BodyObj"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Inserted",
+            "schema": {
+              "$ref": "#/definitions/insertResponse"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Obtiene un usuario por su ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID del usuario",
+            "schema": {
+              "$ref": "#/definitions/UserResult"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserResult"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": ["name", "id"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "BodyObj": {
+      "required": ["nombre"],
+      "properties": {
+        "nombre": {
+          "type": "string"
+        }
+      }
+    },
+    "insertResponse": {
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        }
+      }
+    },
+    "UsersResult": {
+      "properties": {
+        "usuarios": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/User" }
+        }
+      }
+    },
+    "UserResult": {
+      "properties": {
+        "usuario": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/User" }
+        }
+      }
+    }
+  }
+}
