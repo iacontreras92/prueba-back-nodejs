@@ -22,7 +22,7 @@ La documentación también se puede consultar en {BASE_URL}/Docs (http://localho
 
 # GET v1/users
 
-Lista todos los usuario
+Lista todos los usuarios
 
 # GET /users/:id
 
